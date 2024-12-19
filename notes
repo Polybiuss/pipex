@@ -1,0 +1,18 @@
+Commande : < file1 ls -l | wc -l > file 2
+
+Si file1 et file2 n'existent cmd :
+no such file or directory: file 1
+creation du file2 avec l'execution de sa commande
+
+Si file1 n'existe pas :
+no such file or directory: file 1
+execution de la commande dans file2
+
+Si file2 n'existe pas :
+execution de la commande dans file1
+creation du file2 et execution de la commande du file 2
+
+constat :
+	-la non presence du file1 n'empeche pas l'execution de la commande pour le file 2 mais empeche celle du file1
+	-la non presence du file2 n'empeche pas l'execution de la commande du file1 et creer le fichier file2 pour l'execution de sa commande 
+	-le besoin de file2 d'avoir access au file1 alors qu'il n'existe pas permet tout de meme d'excuter sa commande  
