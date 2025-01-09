@@ -15,4 +15,5 @@ creation du file2 et execution de la commande du file 2
 constat :
 	-la non presence du file1 n'empeche pas l'execution de la commande pour le file 2 mais empeche celle du file1
 	-la non presence du file2 n'empeche pas l'execution de la commande du file1 et creer le fichier file2 pour l'execution de sa commande 
-	-le besoin de file2 d'avoir access au file1 alors qu'il n'existe pas permet tout de meme d'excuter sa commande  
+	-le besoin de file2 d'avoir access au file1 alors qu'il n'existe pas permet tout de meme d'excuter sa commande 
+	-si le file2 n'existe pas il est creer avant l'execution de n'importe qu'elle commande

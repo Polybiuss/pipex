@@ -2,8 +2,13 @@ NAME = pipex
 LIB = libft.a
 LIB_DIR = libft
 OBJ_DIR = obj
+SRC_PTH = pathing
+SRC_PP = pipes
 
 SRC = pipex.c \
+	$(SRC_PTH)/ft_split_scam.c \
+	$(SRC_PTH)/path_bin.c \
+	$(SRC_PP)/pipe.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
