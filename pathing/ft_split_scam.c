@@ -6,7 +6,7 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 01:10:38 by jbergos           #+#    #+#             */
-/*   Updated: 2025/01/08 01:21:30 by jbergos          ###   ########.fr       */
+/*   Updated: 2025/01/12 03:01:15 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static size_t	ft_count_words(char *s, char c)
 	return (count);
 }
 
-static void free_table(char **pptr, size_t len)
+static void	free_table(char **pptr, size_t len)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (i < len)
@@ -44,9 +44,10 @@ static void free_table(char **pptr, size_t len)
 	free(pptr);
 }
 
-char *add_slash(char *str)
+char	*add_slash(char *str)
 {
-	char *s;
+	char	*s;
+
 	s = ft_strjoin(str, "/");
 	free(str);
 	return (s);
@@ -66,7 +67,7 @@ char	**ft_split_scam(char *s, char c)
 	j = 0;
 	while (j < ft_count_words(s, c))
 	{
-		while (s[i] &&  s[i] == c)
+		while (s[i] && s[i] == c)
 			++i;
 		end = 0;
 		while (s[i + end] != '\0' && s[i + end] != c)

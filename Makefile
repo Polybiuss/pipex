@@ -4,11 +4,17 @@ LIB_DIR = libft
 OBJ_DIR = obj
 SRC_PTH = pathing
 SRC_PP = pipes
+SRC_CH = child
+SRC_P = s_pipe
 
 SRC = pipex.c \
 	$(SRC_PTH)/ft_split_scam.c \
 	$(SRC_PTH)/path_bin.c \
 	$(SRC_PP)/pipe.c \
+	$(SRC_CH)/child_exec.c \
+	$(SRC_CH)/process.c \
+	$(SRC_P)/s_pipe_create.c \
+	$(SRC_P)/s_pipe_free.c \
 
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 

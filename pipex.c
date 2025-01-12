@@ -6,139 +6,55 @@
 /*   By: jbergos <jbergos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 22:48:15 by jbergos           #+#    #+#             */
-/*   Updated: 2025/01/09 20:31:02 by jbergos          ###   ########.fr       */
+/*   Updated: 2025/01/12 04:35:34 by jbergos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	free_args(char **args)
+int	count_arg_without_space(char *s)
 {
-	int i;
+	int	i;
+	int	count;
 
 	i = 0;
-	while (args[i])
+	count = 0;
+	while (s[i])
 	{
-		free(args[i]);
-		++i;
+		if (s[i] != ' ')
+			++count;
+		i++;
 	}
-	free(args);
+	return (count);
 }
 
-void	free_lst(t_cmd_args *args)
+int	check_arg(char **argv)
 {
-	if (!(args))
-		return ;
-	free_lst(args->next);
-	if (!args->args)
-		free((args));
-	else
-	{
-		free_args(args->args);
-		free(args);
-	}
-}
-
-void	free_s_pipex(t_pipe pipex)
-{
-	int i;
+	int	i;
 
 	i = 0;
-	while (pipex.path[i])
-	{
-		free(pipex.path[i]);
-		++i;
-	}
-	free_lst(pipex.all_args);
-	free(pipex.path);
-}
-
-t_cmd_args	*create_args(char *arg)
-{
-	t_cmd_args *args;
-
-	args = malloc(sizeof(t_cmd_args));
-	if (!args)
-		return (NULL);
-	args->args = ft_split(arg, ' ');
-	args->next = NULL;
-	return (args);
-}
-
-void	add_last(t_cmd_args **args, t_cmd_args *add)
-{
-	t_cmd_args *tmp;
-
-	if(!(*args))
-	{
-		*args = add;
-		return ;
-	}
-	tmp = *args;
-	while (tmp)
-	{
-		if (!tmp->next)
-			break ;
-		tmp = tmp->next;
-	}
-	tmp->next = add;
-}
-
-t_cmd_args	*lst_args(char **argv)
-{
-	t_cmd_args *args;
-	int i;
-
-	i = 2;
-	args = NULL;
 	while (argv[i])
 	{
-		if (argv[i + 1])
-			add_last(&args, create_args(argv[i]));
+		if (!count_arg_without_space(argv[i]))
+			return (0);
 		++i;
 	}
-	return (args);
+	return (1);
 }
 
-void	show_args(char **args)
+int	main(int argc, char *argv[], char **envp)
 {
-	int i;
+	t_pipe	pipex;
 
-	i = 0;
-
-	while (args[i])
-	{
-		ft_printf("args : %s\n", args[i]);
-		++i;
-	}
-}
-
-void	show_lst_args(t_cmd_args *args)
-{
-	t_cmd_args *tmp;
-	if (!args)
-		return ;
-	tmp = args;
-	while (tmp)
-	{
-		show_args(tmp->args);
-		tmp = tmp->next;
-	}
-}
-
-int main(int argc, char *argv[], char **envp)
-{
-	(void)argv;
-	t_pipe pipex;
 	if (argc == 5)
 	{
-		pipex.envp = envp;
-		pipex.path = path_bin(envp);
-		pipex.infile = argv[1];
-		pipex.outfile = argv[4];
-		pipex.all_args = lst_args(argv);
+		if (!check_arg(argv))
+		{
+			ft_putstr_fd("pipex: File or command empty\n", 2);
+			return (0);
+		}
+		pipex = create_pipex(argc, argv, envp);
 		exec_pipe(pipex);
-		// show_lst_args(pipex.all_args);
 		free_s_pipex(pipex);
 	}
 	return (0);
